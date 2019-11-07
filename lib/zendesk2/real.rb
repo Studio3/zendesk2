@@ -66,7 +66,7 @@ class Zendesk2::Real
     end
   rescue Faraday::ConnectionFailed
     raise
-  rescue Faraday::Error::ClientError => e
+  rescue Faraday::ClientError => e
     raise Zendesk2::Error, e
   end
 end

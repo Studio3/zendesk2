@@ -265,6 +265,7 @@ module Zendesk2::Request
       method: method,
       url: URI.parse(url),
       body: body,
+      response_body: body, # added compatibility with faraday ~> 1.16.0
       request_headers: request_headers,
       response_headers: response_headers,
       status: status,
@@ -272,7 +273,7 @@ module Zendesk2::Request
 
     Faraday::Response::RaiseError.new.on_complete(env) ||
       Faraday::Response.new(env)
-  rescue Faraday::Error::ClientError => e
+  rescue Faraday::ClientError => e
     raise Zendesk2::Error, e
   end
 end
